@@ -1,0 +1,11 @@
+[project]
+name = "wheather-endpoint"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.124.0",
+    "numpy>=2.3.5",
+    "uvicorn>=0.38.0",
+]
