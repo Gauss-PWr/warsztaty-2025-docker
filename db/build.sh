@@ -1,0 +1,1 @@
+docker build -f db/Containerfile -t weather_db .

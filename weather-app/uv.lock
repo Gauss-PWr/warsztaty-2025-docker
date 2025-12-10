@@ -91,6 +91,12 @@ wheels = [
 ]
 
 [[package]]
+name = "chartjs"
+version = "1.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/10/39/f0c51a818f6f48f6453019e2bd09fe32ee6b7779bc7285c85db955482474/chartjs-1.2.zip", hash = "sha256:9a58d91b099822999a1ec4fa0882b984decc0c488b3d18ea5585a78204238109", size = 14697, upload-time = "2015-12-09T15:14:34.135Z" }
+
+[[package]]
 name = "click"
 version = "8.3.1"
 source = { registry = "https://pypi.org/simple" }
@@ -411,14 +417,18 @@ name = "warsztaty-2025-docker"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "chartjs" },
     { name = "flask" },
     { name = "google-api-python-client" },
+    { name = "requests" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "chartjs", specifier = ">=1.2" },
     { name = "flask", specifier = ">=3.1.2" },
     { name = "google-api-python-client", specifier = ">=2.187.0" },
+    { name = "requests", specifier = ">=2.32.5" },
 ]
 
 [[package]]

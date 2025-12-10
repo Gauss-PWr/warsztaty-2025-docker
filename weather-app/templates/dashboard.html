@@ -1,1 +1,63 @@
-    
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Weather Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+<body>
+  <h2>Temperatura</h2>
+  <canvas id="chart" height="120"></canvas>
+
+  <script>
+    const ctx = document.getElementById("chart");
+    let first_x = null;
+    const chart = new Chart(ctx, {
+      type: "scatter",
+      data: { datasets: [{
+        label: "°C",
+        data: [],
+        borderColor: "orange",
+        pointRadius: 3,
+        tension: 0.2
+      }] },
+      options: {
+        animation: false,
+        parsing: false,
+        scales: {
+          x: { type: "time", time: { unit: "second" } },
+          y: { suggestedMin: -10, suggestedMax: 30 }
+        }
+      }
+    });
+
+    async function tick() {
+      try {
+        const res = await fetch("/data", { cache: "no-cache" });
+        if (!res.ok) throw new Error(res.statusText);
+        const data = await res.json();
+        const x = new Date(Number(data.timestamp) * 1000); // ts is unix seconds
+        const y = Number(data.temperature);
+
+        if (first_x === null) { 
+            first_x = x;
+            chart.options.scales.x.min = first_x;
+            chart.options.scales.x.max = new Date(first_x.getTime() + 60000);
+        }
+
+        if (!Number.isNaN(y)) {
+          chart.data.datasets[0].data.push({ x, y });
+          if (chart.data.datasets[0].data.length > 60) chart.data.datasets[0].data.shift();
+          chart.update("none");
+        }
+      } catch (e) {
+        console.error("tick failed:", e);
+      }
+    }
+
+    setInterval(tick, 1000);
+    tick();
+  </script>
+</body>
+</html>
