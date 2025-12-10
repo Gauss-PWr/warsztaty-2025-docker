@@ -1,0 +1,1 @@
+docker build -f weather-app/Containerfile -t weather_app weather-app/

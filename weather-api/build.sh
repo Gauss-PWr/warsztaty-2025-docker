@@ -1,0 +1,1 @@
+docker build -f weather-api/Containerfile -t weather_api weather-api/
