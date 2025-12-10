@@ -1,0 +1,36 @@
+services:
+  db:
+    container_name: weather-db
+    build: 
+      context: ./db
+      dockerfile: Containerfile
+    ports:
+      - "5432:5432"
+    env_file:
+      - compose.env
+  
+  weather_api:
+    container_name: weather-api
+    build: 
+      context: ./weather-api
+      dockerfile: Containerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - compose.env
+    depends_on:
+      - db
+
+  weather_app:
+    container_name: weather-app
+    build: 
+      context: ./weather-app
+      dockerfile: Containerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - compose.env
+    depends_on:
+      - weather_api
+
+

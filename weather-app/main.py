@@ -1,7 +1,9 @@
 import os, requests
 from flask import Flask, render_template
 
-WEATHER_API_URL = os.getenv("WEATHER_API_URL", "http://localhost:8000/weather")
+API_HOST = os.getenv("API_HOST", "localhost")
+API_PORT = os.getenv("API_PORT", "8000")
+WEATHER_API_URL = f"http://{API_HOST}:{API_PORT}/weather"
 
 app = Flask(__name__)
 
